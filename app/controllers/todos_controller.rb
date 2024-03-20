@@ -15,7 +15,13 @@ class TodosController < ApplicationController
     end
 
     def update
-        
+        todo = Todo.find_by(id: params[:id])
+        todo.update(todo_params)
+        if todo.valid?
+            render json: todo, status: :created
+        else
+            render json: {errors: todo.errors.full_messages}, status: :unprocessible_entity
+        end
     end
 
     def destroy

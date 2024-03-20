@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :todos, only: [:create, :destroy]
+  resources :todos, only: [:create, :destroy, :index]
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

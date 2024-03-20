@@ -1,5 +1,10 @@
 class TodosController < ApplicationController
 
+    def index
+        todos = Todo.all 
+        render json: todos, status: :created
+    end
+
     def create
         todo = Todo.create(todo_params)
         if todo.valid?

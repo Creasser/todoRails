@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function TodoForm(){
+function TodoForm({ handleNewTodo }){
     const [todo, setTodo] = useState({
         title: '',
         description: ''
@@ -17,6 +17,27 @@ function TodoForm(){
 
     function handleSubmit(e){
         e.preventDefault()
+        fetch('/todos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: todo.title,
+                description: todo.description
+            })
+        }).then((r) => {
+            if (r.ok){
+                r.json().then((data) => {
+                    //create function to consume the data that is returned
+                    handleNewTodo(data)
+                    setTodo({
+                        title: '',
+                        description: ''
+                    })
+                })
+            }
+        })
     }
 
     return(
